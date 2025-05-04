@@ -2,28 +2,6 @@ import { Category } from './types';
 
 export const categories: Category[] = [
   {
-    name: 'Important documents',
-    items: [
-      'ID/passport',
-      "Driver's license (if planning to drive)",
-      'Credit/debit cards',
-      'Cash',
-      'Reservation confirmations (hotel, flights, activities)',
-      'Travel insurance (if applicable)',
-    ],
-  },
-  {
-    name: 'Electronics',
-    items: [
-      'Mobile phone and charger',
-      'Computer/tablet and charger (if necessary)',
-      'Plug adapters/converters',
-      'Power bank',
-      'Headphones',
-      'Camera and charger (if different from phone)',
-    ],
-  },
-  {
     name: 'Clothing',
     items: [
       'Underwear (one per day + extras)',
@@ -41,16 +19,49 @@ export const categories: Category[] = [
   {
     name: 'Personal hygiene items',
     items: [
-      'Toothbrush and toothpaste',
+      'Toothbrush',
+      'Toothpaste',
       'Deodorant',
       'Shampoo and conditioner',
       'Soap/body wash',
-      'Moisturizer',
       'Sunscreen',
       'Insect repellent',
       'Feminine hygiene products (if applicable)',
       'Regular medications',
       'Basic first aid kit (pain relievers, bandages, etc.)',
+    ],
+  },
+  {
+    name: 'Important documents',
+    items: [
+      'ID/passport',
+      "Driver's license (if planning to drive)",
+      'Credit/debit cards',
+      'Cash',
+      'Reservation confirmations (hotel, flights, activities)',
+      'Travel insurance (if applicable)',
+    ],
+  },
+  {
+    name: 'Electronics',
+    items: [
+      'Mobile phone',
+      'Charger',
+      'Computer/tablet and charger (if necessary)',
+      'Plug adapters/converters',
+      'Power bank',
+      'Headphones',
+      'Camera and charger (if different from phone)',
+    ],
+  },
+  {
+    name: 'Others',
+    items: [
+      'Towel (if necessary)',
+      'Bed linen (if necessary)',
+      'Watter bottle',
+      'Plastic bags',
+      'Food (if necessary)',
     ],
   },
   {
@@ -65,6 +76,7 @@ export const categories: Category[] = [
       'Notify trusted neighbor or family member',
       'Set up lights with timer (if possible)',
       'Check that water taps are closed',
+      'Verify stove is turned off',
       'Verify gas is turned off (if applicable)',
       'Activate alarm system (if applicable)',
       'Leave spare keys with trusted person',
