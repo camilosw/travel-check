@@ -7,46 +7,68 @@ import {
   useCustomItems,
   useEditMode,
   useProgress,
+  useLocalStorage,
 } from '../hooks';
 import { categories } from '../data';
 
 const TravelChecklist = () => {
-  // Custom hooks
-  const { markedItems, toggleItem, toggleAllInCategory, resetAll } =
-    useCheckedItems();
-  const { expandedCategories, toggleCategory } =
-    useCategoryExpansion(categories);
-  const {
-    newItems,
-    newItemText,
-    updateNewItemText,
-    addNewItem,
-    deleteCustomItem,
-  } = useCustomItems(categories);
-  const { editMode, startEdit, cancelEdit, updateEditText } = useEditMode();
-  const progress = useProgress(categories, markedItems, newItems);
+  // Initialize localStorage hook
+  const { state, updateState, clearState } = useLocalStorage({
+    markedItems: {},
+    newItems: categories.reduce((acc, cat) => ({ ...acc, [cat.name]: [] }), {}),
+    newItemText: categories.reduce(
+      (acc, cat) => ({ ...acc, [cat.name]: '' }),
+      {}
+    ),
+  });
 
-  const handleSave = (): void => {
-    alert(
-      'State saved! This functionality could be expanded to save state in localStorage or export to PDF.'
-    );
+  // Initialize hooks with localStorage state
+  const checkedItems = useCheckedItems(state.markedItems);
+  const categoryExpansion = useCategoryExpansion(categories);
+  const customItems = useCustomItems(
+    categories,
+    state.newItems,
+    state.newItemText
+  );
+  const editMode = useEditMode();
+  const progress = useProgress(
+    categories,
+    checkedItems.markedItems,
+    customItems.newItems
+  );
+
+  // Wrapper functions that save to localStorage
+  const toggleItemWithSave = (
+    category: string,
+    itemIndex: number,
+    isCustom = false
+  ) => {
+    checkedItems.toggleItem(category, itemIndex, isCustom);
+    // Save to localStorage via the useEffect in useCheckedItems
+  };
+
+  const handleReset = () => {
+    checkedItems.resetAll();
+    customItems.resetItems();
+    clearState();
   };
 
   const handleSaveEdit = () => {
-    if (editMode.type === 'predefined') {
-      // For predefined items, we'd need to implement a way to update the categories
-      // This would require making categories state as well, which is outside the scope
-      // of this refactoring. For now, we'll just reset edit mode.
+    if (editMode.editMode.type === 'predefined') {
       console.warn('Editing predefined items is not fully implemented');
     } else {
-      // Update custom items
-      const currentItems = [...newItems[editMode.category]];
-      currentItems[editMode.index] = editMode.text;
-      const newArray = [...newItems[editMode.category]];
-      newArray[editMode.index] = editMode.text;
-      // This would need a method to update a specific custom item
+      const currentItems = [
+        ...customItems.newItems[editMode.editMode.category],
+      ];
+      currentItems[editMode.editMode.index] = editMode.editMode.text;
+      // Update via customItems hook which will trigger save
+      customItems.updateCustomItem(
+        editMode.editMode.category,
+        editMode.editMode.index,
+        editMode.editMode.text
+      );
     }
-    cancelEdit();
+    editMode.cancelEdit();
   };
 
   return (
@@ -60,47 +82,48 @@ const TravelChecklist = () => {
         <CategorySection
           key={catIndex}
           category={category}
-          isExpanded={expandedCategories[category.name]}
-          markedItems={markedItems}
-          newItems={newItems[category.name] || []}
-          newItemText={newItemText[category.name]}
-          editMode={editMode}
-          onToggleCategory={() => toggleCategory(category.name)}
+          isExpanded={categoryExpansion.expandedCategories[category.name]}
+          markedItems={checkedItems.markedItems}
+          newItems={customItems.newItems[category.name] || []}
+          newItemText={customItems.newItemText[category.name]}
+          editMode={editMode.editMode}
+          onToggleCategory={() =>
+            categoryExpansion.toggleCategory(category.name)
+          }
           onToggleItem={(itemIndex, isCustom) =>
-            toggleItem(category.name, itemIndex, isCustom)
+            toggleItemWithSave(category.name, itemIndex, isCustom)
           }
           onToggleAll={(e) => {
             e.stopPropagation();
-            toggleAllInCategory(category.name, category.items);
+            checkedItems.toggleAllInCategory(category.name, category.items);
           }}
           onEdit={(index, text, type) => {
-            startEdit(category.name, index, text, type);
+            editMode.startEdit(category.name, index, text, type);
           }}
           onDelete={(index, type) => {
             if (type === 'predefined') {
-              // For predefined items, we'd need to implement a way to update the categories
               console.warn(
                 'Deleting predefined items is not fully implemented'
               );
             } else {
-              deleteCustomItem(category.name, index);
+              customItems.deleteCustomItem(category.name, index);
             }
           }}
           onUpdateNewItemText={(text) => {
-            updateNewItemText(category.name, text);
+            customItems.updateNewItemText(category.name, text);
           }}
           onAddNewItem={() => {
-            addNewItem(category.name);
+            customItems.addNewItem(category.name);
           }}
           onSaveEdit={handleSaveEdit}
-          onCancelEdit={cancelEdit}
+          onCancelEdit={editMode.cancelEdit}
           onEditTextChange={(text) => {
-            updateEditText(text);
+            editMode.updateEditText(text);
           }}
         />
       ))}
 
-      <ActionButtons onSave={handleSave} onReset={resetAll} />
+      <ActionButtons onReset={handleReset} />
     </div>
   );
 };
