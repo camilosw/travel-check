@@ -1,0 +1,74 @@
+import { Category } from './types';
+
+export const categories: Category[] = [
+  {
+    name: 'Important documents',
+    items: [
+      'ID/passport',
+      "Driver's license (if planning to drive)",
+      'Credit/debit cards',
+      'Cash',
+      'Reservation confirmations (hotel, flights, activities)',
+      'Travel insurance (if applicable)',
+    ],
+  },
+  {
+    name: 'Electronics',
+    items: [
+      'Mobile phone and charger',
+      'Computer/tablet and charger (if necessary)',
+      'Plug adapters/converters',
+      'Power bank',
+      'Headphones',
+      'Camera and charger (if different from phone)',
+    ],
+  },
+  {
+    name: 'Clothing',
+    items: [
+      'Underwear (one per day + extras)',
+      'Socks (one per day + extras)',
+      'T-shirts/blouses',
+      'Pants/skirts/shorts',
+      'Sleepwear',
+      'Light sweater/jacket',
+      'Raincoat (depending on weather)',
+      'Swimsuit (if applicable)',
+      'Comfortable walking shoes',
+      'Alternative shoes/sandals',
+    ],
+  },
+  {
+    name: 'Personal hygiene items',
+    items: [
+      'Toothbrush and toothpaste',
+      'Deodorant',
+      'Shampoo and conditioner',
+      'Soap/body wash',
+      'Moisturizer',
+      'Sunscreen',
+      'Insect repellent',
+      'Feminine hygiene products (if applicable)',
+      'Regular medications',
+      'Basic first aid kit (pain relievers, bandages, etc.)',
+    ],
+  },
+  {
+    name: 'Things to do before leaving',
+    items: [
+      'Unplug non-essential appliances',
+      'Adjust thermostat/heating',
+      'Close all windows and doors',
+      'Empty trash',
+      'Clean fridge of perishable food',
+      'Water plants or arrange for someone to do it',
+      'Notify trusted neighbor or family member',
+      'Set up lights with timer (if possible)',
+      'Check that water taps are closed',
+      'Verify gas is turned off (if applicable)',
+      'Activate alarm system (if applicable)',
+      'Leave spare keys with trusted person',
+      'Check weather forecast for destination',
+    ],
+  },
+];

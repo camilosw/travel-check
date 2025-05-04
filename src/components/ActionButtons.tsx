@@ -1,24 +1,15 @@
-interface Props {
-  onSave: () => void;
+import React from 'react';
+
+interface ActionButtonsProps {
   onReset: () => void;
 }
 
-export const ActionButtons = ({ onSave, onReset }: Props) => {
+export const ActionButtons: React.FC<ActionButtonsProps> = ({ onReset }) => {
   return (
-    <div className="mt-6 text-center flex justify-center space-x-4">
+    <div className="flex justify-center mt-8">
       <button
-        className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
-        onClick={onSave}
-      >
-        Save State
-      </button>
-      <button
-        className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700"
-        onClick={() => {
-          if (window.confirm('Are you sure you want to uncheck all items?')) {
-            onReset();
-          }
-        }}
+        onClick={onReset}
+        className="bg-red-500 text-white px-6 py-2 rounded hover:bg-red-600 mr-4"
       >
         Reset All
       </button>
