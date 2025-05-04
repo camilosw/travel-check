@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
-import { Category, CustomItems } from '../types';
+import { Category, CustomItems, NewItemText } from '../types';
 
 export const useCustomItems = (
   categories: Category[],
   initialNewItems?: CustomItems,
-  initialNewItemText?: CustomItems
+  initialNewItemText?: NewItemText
 ) => {
   const [newItems, setNewItems] = useState<CustomItems>(
     initialNewItems ||
@@ -14,11 +14,11 @@ export const useCustomItems = (
       )
   );
 
-  const [newItemText, setNewItemText] = useState<CustomItems>(
+  const [newItemText, setNewItemText] = useState<NewItemText>(
     initialNewItemText ||
       categories.reduce(
         (acc, cat) => ({ ...acc, [cat.name]: '' }),
-        {} as CustomItems
+        {} as NewItemText
       )
   );
 
@@ -85,7 +85,7 @@ export const useCustomItems = (
     setNewItemText(
       categories.reduce(
         (acc, cat) => ({ ...acc, [cat.name]: '' }),
-        {} as CustomItems
+        {} as NewItemText
       )
     );
   };

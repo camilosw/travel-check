@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { Category, MarkedItems, CustomItems, Progress } from '../../types';
+import { Category, MarkedItems, CustomItems, Progress } from '../types';
 
 export const useProgress = (
   categories: Category[],

@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react';
-import { MarkedItems, CustomItems } from '../types';
+import { MarkedItems, CustomItems, NewItemText } from '../types';
 
 const STORAGE_KEY = 'travel-checklist-state';
 
 interface AppState {
   markedItems: MarkedItems;
   newItems: CustomItems;
-  newItemText: CustomItems;
+  newItemText: NewItemText;
 }
 
 export const useLocalStorage = (initialValue: AppState) => {

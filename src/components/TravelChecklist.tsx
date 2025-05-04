@@ -13,7 +13,7 @@ import { categories } from '../data';
 
 const TravelChecklist = () => {
   // Initialize localStorage hook
-  const { state, updateState, clearState } = useLocalStorage({
+  const { state, clearState } = useLocalStorage({
     markedItems: {},
     newItems: categories.reduce((acc, cat) => ({ ...acc, [cat.name]: [] }), {}),
     newItemText: categories.reduce(

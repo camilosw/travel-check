@@ -28,3 +28,6 @@ export interface CategoryExpansion {
 export interface CustomItems {
   [key: string]: string[];
 }
+export interface NewItemText {
+  [key: string]: string;
+}

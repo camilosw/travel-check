@@ -14,7 +14,7 @@ export const useEditMode = () => {
     category: string,
     index: number,
     text: string,
-    type: string
+    type: 'predefined' | 'custom'
   ): void => {
     setEditMode({
       active: true,
