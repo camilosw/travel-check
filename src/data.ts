@@ -38,6 +38,7 @@ export const categories: Category[] = [
       "Driver's license (if planning to drive)",
       'Credit/debit cards',
       'Cash',
+      'Online Check in',
       'Reservation confirmations (hotel, flights, activities)',
       'Travel insurance (if applicable)',
     ],
